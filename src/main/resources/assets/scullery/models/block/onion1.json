@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "scullery:blocks/onion_stage2"
+  }
+}

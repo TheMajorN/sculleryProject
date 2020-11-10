@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "scullery:raw_bacon"
+  },
+  "result": "scullery:cooked_bacon",
+  "experience": 0.0,
+  "cookingtime": 200
+}

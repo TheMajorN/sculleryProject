@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "age=0": { "model":  "scullery:block/garlic0" },
+    "age=1": { "model":  "scullery:block/garlic1" },
+    "age=2": { "model":  "scullery:block/garlic2" },
+    "age=3": { "model":  "scullery:block/garlic3" },
+    "age=4": { "model":  "scullery:block/garlic4" },
+    "age=5": { "model":  "scullery:block/garlic5" },
+    "age=6": { "model":  "scullery:block/garlic6" },
+    "age=7": { "model":  "scullery:block/garlic7" }
+  }
+}

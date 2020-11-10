@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "xyx",
+    "zzz"
+  ],
+  "key":
+  {
+    "y":
+    {
+      "item": "scullery:knife"
+    },
+    "z":
+    {
+  "item": "minecraft:oak_slab"
+    }
+  },
+
+  "result":
+  {
+    "item": "scullery:cuttingboard",
+    "count": 1
+  }
+}

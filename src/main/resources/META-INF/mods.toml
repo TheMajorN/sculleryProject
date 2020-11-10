@@ -1,0 +1,28 @@
+modLoader="javafml" #mandatory
+loaderVersion="[34,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="All rights reserved"
+issueTrackerURL="http://my.issue.tracker/" #optional
+[[mods]] #mandatory
+modId="scullery" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Scullery" #mandatory
+updateJSONURL="http://myurl.me/" #optional
+displayURL="http://example.com/" #optional
+logoFile="examplemod.png" #optional
+credits="Shoutout to all the people that helped" #optional
+authors="TheMajorN & Cloverjac" #optional
+description='''
+A cooking overhaul that adds all new cooking mechanics, tools, and food.
+'''
+[[dependencies.examplemod]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[34,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3]"
+    ordering="NONE"
+    side="BOTH"

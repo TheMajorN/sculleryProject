@@ -1,0 +1,26 @@
+{
+  "item.scullery.knife": "Kitchen Knife",
+  "item.scullery.jar": "Jar",
+
+  "block.scullery.grinder": "Meat Grinder",
+  "block.scullery.cuttingboard": "Cutting Board",
+
+  "item.scullery.coffee": "Coffee",
+
+  "item.scullery.raw_bacon": "Raw Bacon",
+  "item.scullery.cooked_bacon": "Cooked Bacon",
+
+  "item.scullery.scrambled_eggs": "Scrambled Eggs",
+
+  "block.scullery.garlic": "Garlic",
+  "block.scullery.onion": "Onion",
+
+  "item.scullery.onionseed": "Onion Seedlings",
+  "item.scullery.garlicseed": "Garlic Cloves",
+
+  "item.scullery.molasses": "Molasses",
+  "item.scullery.brownsugar": "Brown Sugar",
+
+  "item.scullery.garlic_item": "Garlic Bulb",
+  "item.scullery.onion_item": "Onion"
+}
