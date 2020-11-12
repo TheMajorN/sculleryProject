@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "scullery:block/grinder" },
-    "facing=south": { "model": "scullery:block/grinder", "y":  180},
-    "facing=west": { "model": "scullery:block/grinder", "y":  270},
-    "facing=east": { "model": "scullery:block/grinder", "y":  90}
-  }
-}

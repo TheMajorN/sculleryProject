@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north": { "model": "scullery:block/saltevaporator" },
+    "facing=south": { "model": "scullery:block/saltevaporator", "y":  180},
+    "facing=west": { "model": "scullery:block/saltevaporator", "y":  270},
+    "facing=east": { "model": "scullery:block/saltevaporator", "y":  90},
+    "age=0": { "model":  "scullery:block/saltevaporator" },
+    "age=1": { "model":  "scullery:block/saltevaporatorfull" },
+    "age=2": { "model":  "scullery:block/saltevaporator3" },
+    "age=3": { "model":  "scullery:block/saltevaporator2" },
+    "age=4": { "model":  "scullery:block/saltevaporatorsalt"}
+  }
+}

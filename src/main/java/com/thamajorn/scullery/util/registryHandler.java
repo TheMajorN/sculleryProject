@@ -2,6 +2,7 @@ package com.thamajorn.scullery.util;
 
 import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.blocks.Grinder;
+import com.thamajorn.scullery.blocks.SaltEvaporator;
 import com.thamajorn.scullery.items.*;
 import com.thamajorn.scullery.scullery;
 import net.minecraft.block.Block;
@@ -16,11 +17,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+
 public class registryHandler {
+
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, scullery.MOD_ID);
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, scullery.MOD_ID);
-    public static DeferredRegister<Effect> EFFECT = DeferredRegister.create(ForgeRegistries.POTIONS, scullery.MOD_ID);
-    public static DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, scullery.MOD_ID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -68,11 +69,13 @@ public class registryHandler {
     //----------
     public static final RegistryObject<Block> GRINDER = BLOCKS.register("grinder", Grinder::new);
     public static final RegistryObject<Block> CUTTINGBOARD = BLOCKS.register("cuttingboard", Cuttingboard::new);
+    public static final RegistryObject<Block> SALTEVAPORATOR = BLOCKS.register("saltevaporator", SaltEvaporator::new);
 
     // Block Item List
     //----------
     public static final RegistryObject<Item> GRINDER_ITEM = ITEMS.register("grinder", () -> new BlockItem(GRINDER.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
     public static final RegistryObject<Item> CUTTINGBOARD_ITEMS = ITEMS.register("cuttingboard", () -> new BlockItem(CUTTINGBOARD.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+    public static final RegistryObject<Item> SALTEVAPORATOR_ITEM = ITEMS.register("saltevaporator", () -> new BlockItem(SALTEVAPORATOR.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 
     // Food Effect List
     //----------

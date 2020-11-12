@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "scullery:block/cuttingboard" },
-    "facing=south": { "model": "scullery:block/cuttingboard", "y":  180},
-    "facing=west": { "model": "scullery:block/cuttingboard", "y":  270},
-    "facing=east": { "model": "scullery:block/cuttingboard", "y":  90}
-  }
-}
