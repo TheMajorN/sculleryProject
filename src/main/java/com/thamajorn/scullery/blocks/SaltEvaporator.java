@@ -1,5 +1,6 @@
 package com.thamajorn.scullery.blocks;
 
+import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -15,95 +16,159 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.BannerTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class SaltEvaporator extends Block {
+public class SaltEvaporator extends CropsBlock {
 
-    public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_3;
-    private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
-    public SaltEvaporator() {
+    public SaltEvaporator(Properties from) {
         super(AbstractBlock.Properties.create(Material.IRON)
                 .hardnessAndResistance(3.5f, 4.0f)
                 .sound(SoundType.STONE)
                 .harvestLevel(0)
                 .harvestTool(ToolType.PICKAXE));
-        this.setDefaultState(this.stateContainer.getBaseState().with(LEVEL, Integer.valueOf(0)));
     }
 
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        int i = state.get(LEVEL);
-        float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
-        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getPosY() <= (double)f) {
-            entityIn.extinguish();
-            this.setWaterLevel(worldIn, pos, state, i - 1);
-        }
-
+    @Override
+    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return true;
     }
 
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        ItemStack itemstack = player.getHeldItem(handIn);
-        if (itemstack.isEmpty()) {
-            return ActionResultType.PASS;
-        } else {
-            int i = state.get(LEVEL);
-            Item item = itemstack.getItem();
-            if (item == Items.WATER_BUCKET) {
-                if (i < 3 && !worldIn.isRemote) {
-                    if (!player.abilities.isCreativeMode) {
-                        player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
-                    }
+    @Override
+    public int getMaxAge() {
+        return 4;
+    }
 
-                    player.addStat(Stats.FILL_CAULDRON);
-                    this.setWaterLevel(worldIn, pos, state, 3);
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        return false;
+    }
 
-                return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == Items.BOWL) {
-                if (i == 3 && !worldIn.isRemote) {
-                    if (!player.abilities.isCreativeMode) {
-                        itemstack.shrink(1);
-                        if (itemstack.isEmpty()) {
-                            player.setHeldItem(handIn, new ItemStack(Items.MUSHROOM_STEW));
-                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MUSHROOM_STEW))) {
-                            player.dropItem(new ItemStack(Items.MUSHROOM_STEW), false);
-                        }
-                    }
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE_BY_AGE[state.get(this.getAgeProperty())];
+    }
+}
 
-                    player.addStat(Stats.USE_CAULDRON);
-                    this.setWaterLevel(worldIn, pos, state, 0);
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
+ /*   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE_BY_AGE[state.get(this.getAgeProperty())];
+    }
 
-                return ActionResultType.func_233537_a_(worldIn.isRemote);
-                } else {
-                    return ActionResultType.PASS;
+    public IntegerProperty getAgeProperty() {
+        return AGE;
+    }
+    public int getMaxAge() {
+        return 4;
+    }
+    protected int getAge(BlockState state) {
+        return state.get(this.getAgeProperty());
+    }
+
+    public BlockState withAge(int age) {
+        return this.getDefaultState().with(this.getAgeProperty(), Integer.valueOf(age));
+    }
+
+    public boolean isMaxAge(BlockState state) {
+        return state.get(this.getAgeProperty()) >= this.getMaxAge();
+    }
+
+    public boolean ticksRandomly(BlockState state) {
+        return !this.isMaxAge(state);
+    }
+
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+        if (worldIn.getLightSubtracted(pos, 0) >= 9) {
+            int i = this.getAge(state);
+            if (i < this.getMaxAge()) {
+                float f = getGrowthChance(this, worldIn, pos);
+                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
+                    worldIn.setBlockState(pos, this.withAge(i + 1), 2);
+                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                 }
             }
         }
 
-    public void setWaterLevel(World worldIn, BlockPos pos, BlockState state, int level) {
-        worldIn.setBlockState(pos, state.with(LEVEL, Integer.valueOf(MathHelper.clamp(level, 0, 3))), 2);
-        worldIn.updateComparatorOutputLevel(pos, this);
     }
 
-    public boolean hasComparatorInputOverride(BlockState state) {
-        return true;
+    public void grow(World worldIn, BlockPos pos, BlockState state) {
+        int i = this.getAge(state) + this.getBonemealAgeIncrease(worldIn);
+        int j = this.getMaxAge();
+        if (i > j) {
+            i = j;
+        }
+
+        worldIn.setBlockState(pos, this.withAge(i), 2);
     }
 
-    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
-        return blockState.get(LEVEL);
+    protected static float getGrowthChance(Block blockIn, IBlockReader worldIn, BlockPos pos) {
+        float f = 1.0F;
+        BlockPos blockpos = pos.down();
+
+        for(int i = -1; i <= 1; ++i) {
+            for(int j = -1; j <= 1; ++j) {
+                float f1 = 0.0F;
+                BlockState blockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
+                if (blockstate.canSustainPlant(worldIn, blockpos.add(i, 0, j), net.minecraft.util.Direction.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
+                    f1 = 1.0F;
+                    if (blockstate.isFertile(worldIn, pos.add(i, 0, j))) {
+                        f1 = 3.0F;
+                    }
+                }
+
+                if (i != 0 || j != 0) {
+                    f1 /= 4.0F;
+                }
+
+                f += f1;
+            }
+        }
+
+        BlockPos blockpos1 = pos.north();
+        BlockPos blockpos2 = pos.south();
+        BlockPos blockpos3 = pos.west();
+        BlockPos blockpos4 = pos.east();
+        boolean flag = blockIn == worldIn.getBlockState(blockpos3).getBlock() || blockIn == worldIn.getBlockState(blockpos4).getBlock();
+        boolean flag1 = blockIn == worldIn.getBlockState(blockpos1).getBlock() || blockIn == worldIn.getBlockState(blockpos2).getBlock();
+        if (flag && flag1) {
+            f /= 2.0F;
+        } else {
+            boolean flag2 = blockIn == worldIn.getBlockState(blockpos3.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.south()).getBlock() || blockIn == worldIn.getBlockState(blockpos3.south()).getBlock();
+            if (flag2) {
+                f /= 2.0F;
+            }
+        }
+
+        return f;
+    }
+
+    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        return !this.isMaxAge(state);
+    }
+
+    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+        this.grow(worldIn, pos, state);
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
@@ -129,6 +194,17 @@ public class SaltEvaporator extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-        builder.add(LEVEL);
+    }*/
+
+
+
+    /*@Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
     }
-}
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        ModTileEntityTypes.saltevaporator.get().create();
+    }*/
+

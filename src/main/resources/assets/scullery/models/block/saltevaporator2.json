@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"textures": {
-		"3": "block/saltevaporator3",
+		"3": "block/saltevaporator2",
 		"particle": "Salt Evaporator/saltevaporator"
 	},
 	"elements": [

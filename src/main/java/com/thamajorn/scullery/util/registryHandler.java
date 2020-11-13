@@ -69,7 +69,7 @@ public class registryHandler {
     //----------
     public static final RegistryObject<Block> GRINDER = BLOCKS.register("grinder", Grinder::new);
     public static final RegistryObject<Block> CUTTINGBOARD = BLOCKS.register("cuttingboard", Cuttingboard::new);
-    public static final RegistryObject<Block> SALTEVAPORATOR = BLOCKS.register("saltevaporator", SaltEvaporator::new);
+    public static final RegistryObject<Block> SALTEVAPORATOR = BLOCKS.register("saltevaporator", () -> new SaltEvaporator(Block.Properties.from(Blocks.WHEAT)));
 
     // Block Item List
     //----------
