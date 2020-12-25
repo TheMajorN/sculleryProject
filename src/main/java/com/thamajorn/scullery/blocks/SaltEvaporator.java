@@ -1,34 +1,13 @@
 package com.thamajorn.scullery.blocks;
 
-import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.BannerTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SaltEvaporator extends CropsBlock {
@@ -43,7 +22,7 @@ public class SaltEvaporator extends CropsBlock {
             Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
     public SaltEvaporator(Properties from) {
-        super(AbstractBlock.Properties.create(Material.IRON)
+        super(AbstractBlock.Properties.create(Material.WOOD)
                 .hardnessAndResistance(3.5f, 4.0f)
                 .sound(SoundType.STONE)
                 .harvestLevel(0)

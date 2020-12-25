@@ -4,14 +4,23 @@ import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.blocks.Grinder;
 import com.thamajorn.scullery.blocks.SaltEvaporator;
 import com.thamajorn.scullery.items.*;
+import com.thamajorn.scullery.recipes.IExampleRecipe;
+import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
 import com.thamajorn.scullery.scullery;
+import com.thamajorn.scullery.tileentities.cuttingBoardTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,11 +31,17 @@ public class registryHandler {
 
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, scullery.MOD_ID);
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, scullery.MOD_ID);
+    public static DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, scullery.MOD_ID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
+
+    //---------------------------------
+    //---------BLOCKS & ITEMS----------
+    //---------------------------------
 
     // Utensil List
     //----------
@@ -43,6 +58,7 @@ public class registryHandler {
     //----------
     public static final RegistryObject<Item> RAW_BACON = ITEMS.register("raw_bacon", rawBacon::new);
     public static final RegistryObject<Item> COOKED_BACON = ITEMS.register("cooked_bacon", cookedBacon::new);
+    public static final RegistryObject<Item> SLICED_BEEF = ITEMS.register("sliced_beef", itemBase::new);
 
     // Beverage List
     //----------
@@ -79,4 +95,17 @@ public class registryHandler {
 
     // Food Effect List
     //----------
+
+    //---------------------------------
+    //----------TILE ENTITIES----------
+    //---------------------------------
+
+    public static final RegistryObject<TileEntityType<cuttingBoardTileEntity>> CUTTINGBOARD_TILE = TILE_ENTITIES.register("cuttingboard",
+            () -> TileEntityType.Builder.create(cuttingBoardTileEntity::new, registryHandler.CUTTINGBOARD));
+
+    //---------------------------------
+    //-------------RECIPES-------------
+    //---------------------------------
+
+
 }

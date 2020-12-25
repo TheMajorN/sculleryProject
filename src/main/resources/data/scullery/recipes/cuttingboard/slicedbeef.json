@@ -1,0 +1,9 @@
+{
+  "type": "scullery:cuttingboard",
+  "output": {
+    "item": "scullery:sliced_beef"
+  },
+  "input": {
+    "item": "minecraft:beef"
+  }
+}
