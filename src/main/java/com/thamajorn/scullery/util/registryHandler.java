@@ -3,6 +3,7 @@ package com.thamajorn.scullery.util;
 import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.blocks.Grinder;
 import com.thamajorn.scullery.blocks.SaltEvaporator;
+import com.thamajorn.scullery.container.CuttingBoardContainer;
 import com.thamajorn.scullery.items.*;
 import com.thamajorn.scullery.recipes.IExampleRecipe;
 import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
@@ -10,6 +11,9 @@ import com.thamajorn.scullery.scullery;
 import com.thamajorn.scullery.tileentities.cuttingBoardTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -21,6 +25,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,11 +37,13 @@ public class registryHandler {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, scullery.MOD_ID);
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, scullery.MOD_ID);
     public static DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, scullery.MOD_ID);
+    public static DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, scullery.MOD_ID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     //---------------------------------
@@ -101,11 +108,12 @@ public class registryHandler {
     //---------------------------------
 
     public static final RegistryObject<TileEntityType<cuttingBoardTileEntity>> CUTTINGBOARD_TILE = TILE_ENTITIES.register("cuttingboard",
-            () -> TileEntityType.Builder.create(cuttingBoardTileEntity::new, registryHandler.CUTTINGBOARD));
+            () -> TileEntityType.Builder.create(cuttingBoardTileEntity::new, registryHandler.CUTTINGBOARD.get()).build(null));
 
     //---------------------------------
     //-------------RECIPES-------------
     //---------------------------------
 
-
+    public static final RegistryObject<ContainerType<CuttingBoardContainer>> CUTTINGBOARD_CONTAINER = CONTAINERS.register("cuttingboard",
+            () -> IForgeContainerType.create(CuttingBoardContainer::new));
 }

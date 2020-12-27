@@ -1,6 +1,8 @@
 package com.thamajorn.scullery;
 
+import com.thamajorn.scullery.gui.CuttingBoardScreen;
 import com.thamajorn.scullery.util.registryHandler;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.fml.common.Mod;
@@ -37,5 +39,6 @@ public class scullery
         RenderTypeLookup.setRenderLayer(registryHandler.ONION_CROP.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(registryHandler.GARLIC_CROP.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(registryHandler.SALTEVAPORATOR.get(), RenderType.getCutout());
+        ScreenManager.registerFactory(registryHandler.CUTTINGBOARD_CONTAINER.get(), CuttingBoardScreen::new);
     }
 }

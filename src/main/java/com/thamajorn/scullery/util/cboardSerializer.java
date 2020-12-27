@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class cboardSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<cuttingBoardRecipe>, IRecipe<IInventory> {
+public class cboardSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<cuttingBoardRecipe> {
     @Override
     public cuttingBoardRecipe read(ResourceLocation recipeId, JsonObject json) {
         ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);

@@ -12,28 +12,26 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class recipeSerializerInit {
-
-    public class RecipeSerializerInit {
+public class RecipeSerializerInit {
 
         public DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, scullery.MOD_ID);
 
 
-        public final IRecipeSerializer<cuttingBoardRecipe> CBOARD_RECIPE_SERIALIZER = new cboardSerializer();
-        public final IRecipeType<cuttingBoardRecipe> CBOARD_TYPE = registerType(IExampleRecipe.RECIPE_TYPE_ID);
+        public static final IRecipeSerializer<cuttingBoardRecipe> CBOARD_RECIPE_SERIALIZER = new cboardSerializer();
+        public static final IRecipeType<IExampleRecipe> CBOARD_TYPE = registerType(IExampleRecipe.RECIPE_TYPE_ID);
 
-        public final RegistryObject<IRecipeSerializer<?>> EXAMPLE_SERIALIZER = RECIPE_SERIALIZERS.register("example",
+        public final RegistryObject<IRecipeSerializer<?>> CBOARD_SERIALIZER = RECIPE_SERIALIZERS.register("example",
                 () -> CBOARD_RECIPE_SERIALIZER);
 
-        private class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
+        private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {
             @Override
             public String toString() {
                 return Registry.RECIPE_TYPE.getKey(this).toString();
             }
         }
 
-        private <T extends IRecipeType> T registerType(ResourceLocation recipeTypeId) {
+        private static <T extends IRecipeType> T registerType(ResourceLocation recipeTypeId) {
             return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new RecipeType<>());
         }
-    }
 }
+

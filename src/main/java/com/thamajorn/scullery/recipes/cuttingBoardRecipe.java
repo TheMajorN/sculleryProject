@@ -1,6 +1,6 @@
 package com.thamajorn.scullery.recipes;
 
-import com.thamajorn.scullery.util.registryHandler;
+import com.thamajorn.scullery.util.RecipeSerializerInit;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -51,7 +51,7 @@ public class cuttingBoardRecipe implements IExampleRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return registryHandler.CBOARD_SERIALIZER.get();
+        return RecipeSerializerInit.CBOARD_RECIPE_SERIALIZER;
     }
 
     @Override

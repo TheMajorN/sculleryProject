@@ -1,9 +1,12 @@
 package com.thamajorn.scullery.blocks;
 
 
+import com.thamajorn.scullery.tileentities.cuttingBoardTileEntity;
+import com.thamajorn.scullery.util.ExampleItemHandler;
 import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -120,5 +123,21 @@ public class Cuttingboard extends Block {
             }
     }
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof cuttingBoardTileEntity && state.getBlock() != newState.getBlock()) {
+            cuttingBoardTileEntity furnace = (cuttingBoardTileEntity) tile;
+            ((ExampleItemHandler) furnace.getInventory()).toNonNullList().forEach(item -> {
+                ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
+                worldIn.addEntity(itemEntity);
+            });
+        }
+
+        if (state.hasTileEntity() && state.getBlock() != newState.getBlock()) {
+            worldIn.removeTileEntity(pos);
+        }
     }
 }
