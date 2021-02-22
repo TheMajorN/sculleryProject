@@ -42,6 +42,4 @@ public class CuttingBoardScreen extends ContainerScreen<CuttingBoardContainer> {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
     }
-
-
 }

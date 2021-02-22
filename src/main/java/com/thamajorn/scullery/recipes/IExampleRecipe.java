@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public interface IExampleRecipe extends IRecipe<RecipeWrapper> {
 
-    ResourceLocation RECIPE_TYPE_ID = new ResourceLocation(scullery.MOD_ID, "cuttingboard");
+    ResourceLocation RECIPE_TYPE_ID = new ResourceLocation(scullery.MOD_ID, "cuttingboardrecipes");
 
     @Nonnull
     @Override

@@ -97,7 +97,7 @@ public class registryHandler {
     // Block Item List
     //----------
     public static final RegistryObject<Item> GRINDER_ITEM = ITEMS.register("grinder", () -> new BlockItem(GRINDER.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
-    public static final RegistryObject<Item> CUTTINGBOARD_ITEMS = ITEMS.register("cuttingboard", () -> new BlockItem(CUTTINGBOARD.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+    public static final RegistryObject<Item> CUTTINGBOARD_ITEMS = ITEMS.register("cuttingboarditem", () -> new BlockItem(CUTTINGBOARD.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
     public static final RegistryObject<Item> SALTEVAPORATOR_ITEM = ITEMS.register("saltevaporator", () -> new BlockItem(SALTEVAPORATOR.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 
     // Food Effect List

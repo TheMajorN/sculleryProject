@@ -1,5 +1,6 @@
 package com.thamajorn.scullery.tileentities;
 
+import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.container.CuttingBoardContainer;
 import com.thamajorn.scullery.recipes.IExampleRecipe;
 import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
@@ -63,7 +64,6 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
         this(registryHandler.CUTTINGBOARD_TILE.get());
     }
 
-
     @Override
     public Container createMenu(final int windowID, final PlayerInventory playerInv, final PlayerEntity playerIn) {
         return new CuttingBoardContainer(windowID, playerInv, this);
@@ -78,14 +78,13 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
                 if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
                     if (this.currentSmeltTime != this.maxSmeltTime) {
                         this.currentSmeltTime++;
-                        dirty = true;
                     } else {
                         this.currentSmeltTime = 0;
                         ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
                         this.inventory.insertItem(1, output.copy(), false);
                         this.inventory.decrStackSize(0, 1);
-                        dirty = true;
                     }
+                    dirty = true;
                 }
             }
         }
@@ -97,7 +96,7 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
         }
     }
 
-    public void setCustomName (ITextComponent name) {
+    public void setCustomName(ITextComponent name) {
         this.customName = name;
     }
 
@@ -106,7 +105,7 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     }
 
     private ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container." + scullery.MOD_ID + ".cuttingboard");
+        return new TranslationTextComponent("Cutting Board");
     }
 
     @Override
@@ -114,15 +113,14 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
         return this.getName();
     }
 
+    @Nullable
     public ITextComponent getCustomName() {
         return this.customName;
     }
 
     @Override
     public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
         if (compound.contains("CustomName", Constants.NBT.TAG_STRING)) {
-            this.customName = ITextComponent.Serializer.getComponentFromJson(compound.getString("CustomName"));
         }
 
         NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(this.inventory.getSlots(), ItemStack.EMPTY);
@@ -136,7 +134,7 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         if (this.customName != null) {
-            compound.putString("CustomName", ITextComponent.Serializer.toJson(ITextComponent.getTextComponentOrEmpty(compound.getString("CustomName"))));
+            compound.putString("CustomName", ITextComponent.Serializer.toJson(this.customName));
         }
 
         ItemStackHelper.saveAllItems(compound, this.inventory.toNonNullList());
@@ -162,20 +160,22 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
         return null;
     }
 
-    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<IExampleRecipe> typeIn, World world) {
-     return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
+    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn, World world) {
+        return world != null ? world.getRecipeManager().getRecipes().stream()
+                .filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
     @SuppressWarnings("resource")
     @OnlyIn(Dist.CLIENT)
-    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<IExampleRecipe> typeIn) {
+    public static Set<IRecipe<?>> findRecipesByType(IRecipeType<?> typeIn) {
         ClientWorld world = Minecraft.getInstance().world;
-        return world != null ? world.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
+        return world != null ? world.getRecipeManager().getRecipes().stream()
+                .filter(recipe -> recipe.getType() == typeIn).collect(Collectors.toSet()) : Collections.emptySet();
     }
 
     public static Set<ItemStack> getAllRecipeInputs(IRecipeType<?> typeIn, World worldIn) {
         Set<ItemStack> inputs = new HashSet<ItemStack>();
-        Set<IRecipe<?>> recipes = findRecipesByType((IRecipeType<IExampleRecipe>) typeIn, worldIn);
+        Set<IRecipe<?>> recipes = findRecipesByType(typeIn, worldIn);
         for (IRecipe<?> recipe : recipes) {
             NonNullList<Ingredient> ingredients = recipe.getIngredients();
             ingredients.forEach(ingredient -> {
@@ -197,6 +197,14 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
         CompoundNBT nbt = new CompoundNBT();
         this.write(nbt);
         return new SUpdateTileEntityPacket(this.pos, 0, nbt);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        this.read(pkt.getNbtCompound());
+    }
+
+    private void read(CompoundNBT nbtCompound) {
     }
 
     @Override
