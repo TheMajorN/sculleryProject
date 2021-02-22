@@ -1,6 +1,6 @@
 package com.thamajorn.scullery.recipes;
 
-import com.thamajorn.scullery.util.RecipeSerializerInit;
+import com.thamajorn.scullery.init.RecipeSerializerInit;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;

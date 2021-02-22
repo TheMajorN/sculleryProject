@@ -1,12 +1,9 @@
 package com.thamajorn.scullery.tileentities;
 
-import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.container.CuttingBoardContainer;
-import com.thamajorn.scullery.recipes.IExampleRecipe;
 import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
-import com.thamajorn.scullery.scullery;
 import com.thamajorn.scullery.util.ExampleItemHandler;
-import com.thamajorn.scullery.util.RecipeSerializerInit;
+import com.thamajorn.scullery.init.RecipeSerializerInit;
 import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;

@@ -1,8 +1,9 @@
-package com.thamajorn.scullery.util;
+package com.thamajorn.scullery.init;
 
 import com.thamajorn.scullery.recipes.IExampleRecipe;
 import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
 import com.thamajorn.scullery.scullery;
+import com.thamajorn.scullery.util.cboardSerializer;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
