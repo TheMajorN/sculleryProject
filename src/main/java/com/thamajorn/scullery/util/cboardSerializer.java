@@ -37,6 +37,5 @@ public class cboardSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> i
         input.write(buffer);
 
         buffer.writeItemStack(recipe.getRecipeOutput(), false);
-
     }
 }

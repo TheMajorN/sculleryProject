@@ -29,6 +29,9 @@ public class scullery
 
         registryHandler.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         registryHandler.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        registryHandler.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        registryHandler.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+
     }
 
     private void setup(final FMLCommonSetupEvent event) {

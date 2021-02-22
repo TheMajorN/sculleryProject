@@ -33,7 +33,6 @@ public class CuttingBoardScreen extends ContainerScreen<CuttingBoardContainer> {
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         this.font.drawString(matrixStack, this.title.getString(), 5.0f, 5.0f, 0x404040);
-        this.font.drawString(matrixStack, this.playerInventory.getDisplayName().getString(), 7.0f, 55.0f, 0x404040);
 
         this.blit(matrixStack, this.guiLeft + 67, this.guiTop + 19, 176, 0, this.container.getProgressionScale(),35);
     }

@@ -114,14 +114,15 @@ public class Cuttingboard extends Block {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+                                             Hand handIn, BlockRayTraceResult hit) {
         if (worldIn != null && !worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
-           if (tile instanceof cuttingBoardTileEntity) {
+            if (tile instanceof cuttingBoardTileEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tile, pos);
                 return ActionResultType.SUCCESS;
             }
-    }
+        }
         return ActionResultType.SUCCESS;
     }
 

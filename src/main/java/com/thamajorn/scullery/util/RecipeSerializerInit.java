@@ -14,13 +14,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeSerializerInit {
 
-        public DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, scullery.MOD_ID);
+        public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, scullery.MOD_ID);
 
 
         public static final IRecipeSerializer<cuttingBoardRecipe> CBOARD_RECIPE_SERIALIZER = new cboardSerializer();
         public static final IRecipeType<IExampleRecipe> CBOARD_TYPE = registerType(IExampleRecipe.RECIPE_TYPE_ID);
 
-        public final RegistryObject<IRecipeSerializer<?>> CBOARD_SERIALIZER = RECIPE_SERIALIZERS.register("example",
+        public static final RegistryObject<IRecipeSerializer<?>> CBOARD_SERIALIZER = RECIPE_SERIALIZERS.register("cboard",
                 () -> CBOARD_RECIPE_SERIALIZER);
 
         private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

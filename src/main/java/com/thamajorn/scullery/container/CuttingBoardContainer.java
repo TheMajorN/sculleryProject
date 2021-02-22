@@ -24,6 +24,7 @@ public class CuttingBoardContainer extends Container {
     private cuttingBoardTileEntity tileEntity;
     private IWorldPosCallable canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
+
     public CuttingBoardContainer(final int windowID, final PlayerInventory playerInv, final cuttingBoardTileEntity tile) {
         super(registryHandler.CUTTINGBOARD_CONTAINER.get(), windowID);
 
@@ -48,7 +49,7 @@ public class CuttingBoardContainer extends Container {
         }
 
         this.addSlot(new SlotItemHandler(tile.getInventory(), 0, 43, 40));
-        this.addSlot(new SlotItemHandler(tile.getInventory(), 1, 115, 40));
+        this.addSlot(new SlotItemHandler(tile.getInventory(), 1, 114, 40));
 
         this.trackInt(currentSmeltTime = new FunctionalIntReferenceHolder(() -> this.tileEntity.currentSmeltTime,
                 value -> this.tileEntity.currentSmeltTime = value));

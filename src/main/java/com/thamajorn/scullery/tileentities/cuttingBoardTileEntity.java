@@ -60,7 +60,7 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     }
 
     public cuttingBoardTileEntity() {
-        super(registryHandler.CUTTINGBOARD_TILE.get());
+        this(registryHandler.CUTTINGBOARD_TILE.get());
     }
 
 
@@ -71,27 +71,30 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
 
     @Override
     public void tick() {
-    boolean dirty = false;
-    if (this.world != null && !this.world.isRemote) {
-        if (world.isBlockPowered(this.getPos())) {
-            if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
-                if (this.currentSmeltTime != maxSmeltTime) {
-                    this.currentSmeltTime++;
-                    dirty = true;
-                } else {
-                    this.currentSmeltTime = 0;
-                    ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
-                    this.inventory.insertItem(1, output.copy(), false);
-                    this.inventory.decrStackSize(0, 1);
-                    dirty = true;
+        boolean dirty = false;
 
+        if (this.world != null && !this.world.isRemote) {
+            if (this.world.isBlockPowered(this.getPos())) {
+                if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
+                    if (this.currentSmeltTime != this.maxSmeltTime) {
+                        this.currentSmeltTime++;
+                        dirty = true;
+                    } else {
+                        this.currentSmeltTime = 0;
+                        ItemStack output = this.getRecipe(this.inventory.getStackInSlot(0)).getRecipeOutput();
+                        this.inventory.insertItem(1, output.copy(), false);
+                        this.inventory.decrStackSize(0, 1);
+                        dirty = true;
+                    }
                 }
             }
         }
-    }
-    if (dirty) {
-        this.markDirty();
-    }
+
+        if (dirty) {
+            this.markDirty();
+            this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(),
+                    Constants.BlockFlags.BLOCK_UPDATE);
+        }
     }
 
     public void setCustomName (ITextComponent name) {
@@ -103,7 +106,7 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     }
 
     private ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container." + scullery.MOD_ID + ".cuttongboard");
+        return new TranslationTextComponent("container." + scullery.MOD_ID + ".cuttingboard");
     }
 
     @Override

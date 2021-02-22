@@ -22,11 +22,6 @@ public class cuttingBoardRecipe implements IExampleRecipe {
     }
 
     @Override
-    public Ingredient getInput() {
-        return this.input;
-    }
-
-    @Override
     public boolean matches(RecipeWrapper inv, World worldIn) {
         if (this.input.test(inv.getStackInSlot(0))) {
             return true;
@@ -51,7 +46,12 @@ public class cuttingBoardRecipe implements IExampleRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return RecipeSerializerInit.CBOARD_RECIPE_SERIALIZER;
+        return RecipeSerializerInit.CBOARD_SERIALIZER.get();
+    }
+
+    @Override
+    public Ingredient getInput() {
+        return this.input;
     }
 
     @Override
