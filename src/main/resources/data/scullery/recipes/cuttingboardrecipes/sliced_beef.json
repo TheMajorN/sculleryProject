@@ -1,5 +1,5 @@
 {
-  "type": "scullery:cuttingboard",
+  "type": "scullery:cuttingboard_crafting",
   "output": {
     "item": "minecraft:cooked_beef"
   },

@@ -1,12 +1,11 @@
 package com.thamajorn.scullery.container;
 
-import com.thamajorn.scullery.tileentities.cuttingBoardTileEntity;
+import com.thamajorn.scullery.tileentities.CuttingBoardTileEntity;
 import com.thamajorn.scullery.util.FunctionalIntReferenceHolder;
 import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -21,11 +20,11 @@ import java.util.Objects;
 
 public class CuttingBoardContainer extends Container {
 
-    private cuttingBoardTileEntity tileEntity;
+    private CuttingBoardTileEntity tileEntity;
     private IWorldPosCallable canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
 
-    public CuttingBoardContainer(final int windowID, final PlayerInventory playerInv, final cuttingBoardTileEntity tile) {
+    public CuttingBoardContainer(final int windowID, final PlayerInventory playerInv, final CuttingBoardTileEntity tile) {
         super(registryHandler.CUTTINGBOARD_CONTAINER.get(), windowID);
 
         this.tileEntity = tile;
@@ -59,12 +58,12 @@ public class CuttingBoardContainer extends Container {
         this(windowID, playerInv, getTileEntity(playerInv, data));
     }
 
-    private static cuttingBoardTileEntity getTileEntity(final PlayerInventory playerInv, final PacketBuffer data) {
+    private static CuttingBoardTileEntity getTileEntity(final PlayerInventory playerInv, final PacketBuffer data) {
         Objects.requireNonNull(playerInv, "playerInv cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
         final TileEntity tileAtPos = playerInv.player.world.getTileEntity(data.readBlockPos());
-        if (tileAtPos instanceof cuttingBoardTileEntity) {
-            return (cuttingBoardTileEntity) tileAtPos;
+        if (tileAtPos instanceof CuttingBoardTileEntity) {
+            return (CuttingBoardTileEntity) tileAtPos;
         }
         throw new IllegalStateException("TileEntity is not correct " + tileAtPos);
     }

@@ -1,21 +1,24 @@
 package com.thamajorn.scullery.recipes;
 
-import com.thamajorn.scullery.init.RecipeSerializerInit;
+import com.thamajorn.scullery.scullery;
+import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public class cuttingBoardRecipe implements IExampleRecipe {
+public class CuttingBoardRecipe implements IExampleRecipe {
 
     private final ResourceLocation id;
     private Ingredient input;
     private final ItemStack output;
 
-    public cuttingBoardRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+    public CuttingBoardRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
         this.id = id;
         this.output = output;
         this.input = input;
@@ -46,7 +49,7 @@ public class cuttingBoardRecipe implements IExampleRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return RecipeSerializerInit.CBOARD_SERIALIZER.get();
+        return registryHandler.CBOARD_SERIALIZER.get();
     }
 
     @Override

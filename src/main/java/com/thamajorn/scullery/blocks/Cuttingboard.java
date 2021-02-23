@@ -1,7 +1,7 @@
 package com.thamajorn.scullery.blocks;
 
 
-import com.thamajorn.scullery.tileentities.cuttingBoardTileEntity;
+import com.thamajorn.scullery.tileentities.CuttingBoardTileEntity;
 import com.thamajorn.scullery.util.ExampleItemHandler;
 import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.*;
@@ -24,11 +24,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.util.Hand;
-import net.minecraft.util.Direction;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockState;
@@ -118,7 +114,7 @@ public class Cuttingboard extends Block {
                                              Hand handIn, BlockRayTraceResult hit) {
         if (worldIn != null && !worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
-            if (tile instanceof cuttingBoardTileEntity) {
+            if (tile instanceof CuttingBoardTileEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tile, pos);
                 return ActionResultType.SUCCESS;
             }
@@ -129,8 +125,8 @@ public class Cuttingboard extends Block {
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof cuttingBoardTileEntity && state.getBlock() != newState.getBlock()) {
-            cuttingBoardTileEntity furnace = (cuttingBoardTileEntity) tile;
+        if (tile instanceof CuttingBoardTileEntity && state.getBlock() != newState.getBlock()) {
+            CuttingBoardTileEntity furnace = (CuttingBoardTileEntity) tile;
             ((ExampleItemHandler) furnace.getInventory()).toNonNullList().forEach(item -> {
                 ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), item);
                 worldIn.addEntity(itemEntity);

@@ -1,9 +1,8 @@
 package com.thamajorn.scullery.tileentities;
 
 import com.thamajorn.scullery.container.CuttingBoardContainer;
-import com.thamajorn.scullery.recipes.cuttingBoardRecipe;
+import com.thamajorn.scullery.recipes.CuttingBoardRecipe;
 import com.thamajorn.scullery.util.ExampleItemHandler;
-import com.thamajorn.scullery.init.RecipeSerializerInit;
 import com.thamajorn.scullery.util.registryHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -43,7 +42,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class cuttingBoardTileEntity extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
+public class CuttingBoardTileEntity extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
     private ITextComponent customName;
     public int currentSmeltTime;
@@ -51,13 +50,13 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     private ExampleItemHandler inventory;
 
 
-    public cuttingBoardTileEntity(TileEntityType<?> tileEntityTypeIn) {
+    public CuttingBoardTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
 
         this.inventory = new ExampleItemHandler(2);
     }
 
-    public cuttingBoardTileEntity() {
+    public CuttingBoardTileEntity() {
         this(registryHandler.CUTTINGBOARD_TILE.get());
     }
 
@@ -141,14 +140,14 @@ public class cuttingBoardTileEntity extends TileEntity implements ITickableTileE
     }
 
     @Nullable
-    private cuttingBoardRecipe getRecipe(ItemStack stack) {
+    private CuttingBoardRecipe getRecipe(ItemStack stack) {
         if (stack == null) {
             return null;
         }
 
-        Set<IRecipe<?>> recipes = findRecipesByType(RecipeSerializerInit.CBOARD_TYPE, this.world);
+        Set<IRecipe<?>> recipes = findRecipesByType(registryHandler.CBOARD_TYPE, this.world);
         for (IRecipe<?> iRecipe : recipes) {
-            cuttingBoardRecipe recipe = (cuttingBoardRecipe) iRecipe;
+            CuttingBoardRecipe recipe = (CuttingBoardRecipe) iRecipe;
             if (recipe.matches(new RecipeWrapper(this.inventory), this.world)) {
                 return recipe;
             }

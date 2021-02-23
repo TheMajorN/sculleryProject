@@ -27,10 +27,7 @@ public class scullery
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        registryHandler.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        registryHandler.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        registryHandler.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        registryHandler.CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        registryHandler.init();
 
     }
 
