@@ -104,10 +104,10 @@ public class Cuttingboard extends Block {
     @Override
     public boolean hasComparatorInputOverride(BlockState state) { return true; }
 
-    @Override
-    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
-        return Container.calcRedstone(worldIn.getTileEntity(pos));
-    }
+    //@Override
+    //public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
+    //    return Container.calcRedstone(worldIn.getTileEntity(pos));
+    //}
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,

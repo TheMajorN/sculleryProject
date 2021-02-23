@@ -27,14 +27,13 @@ public class CuttingBoardScreen extends ContainerScreen<CuttingBoardContainer> {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
         CuttingBoardScreen.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize, 299, 299);
-
+        this.blit(matrixStack, this.guiLeft + 67, this.guiTop + 25, 176, 0, this.container.getProgressionScale(),35);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         this.font.drawString(matrixStack, this.title.getString(), 5.0f, 5.0f, 0x404040);
 
-        this.blit(matrixStack, this.guiLeft + 67, this.guiTop + 19, 176, 0, this.container.getProgressionScale(),35);
     }
 
     @Override

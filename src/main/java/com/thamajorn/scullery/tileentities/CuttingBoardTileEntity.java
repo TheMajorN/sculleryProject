@@ -46,7 +46,7 @@ public class CuttingBoardTileEntity extends TileEntity implements ITickableTileE
 
     private ITextComponent customName;
     public int currentSmeltTime;
-    public final int maxSmeltTime = 40;
+    public final int maxSmeltTime = 20;
     private ExampleItemHandler inventory;
 
 
@@ -70,7 +70,6 @@ public class CuttingBoardTileEntity extends TileEntity implements ITickableTileE
         boolean dirty = false;
 
         if (this.world != null && !this.world.isRemote) {
-            if (this.world.isBlockPowered(this.getPos())) {
                 if (this.getRecipe(this.inventory.getStackInSlot(0)) != null) {
                     if (this.currentSmeltTime != this.maxSmeltTime) {
                         this.currentSmeltTime++;
@@ -82,7 +81,6 @@ public class CuttingBoardTileEntity extends TileEntity implements ITickableTileE
                     }
                     dirty = true;
                 }
-            }
         }
 
         if (dirty) {

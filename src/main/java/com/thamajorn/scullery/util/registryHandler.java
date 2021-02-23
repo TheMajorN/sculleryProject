@@ -115,7 +115,7 @@ public class registryHandler {
     //-------------RECIPES-------------
     //---------------------------------
 
-  public static final IRecipeSerializer<CuttingBoardRecipe> CBOARD_RECIPE_SERIALIZER = new CuttingBoardSerializer<>();
+    public static final IRecipeSerializer<CuttingBoardRecipe> CBOARD_RECIPE_SERIALIZER = new CuttingBoardSerializer<>();
     public static final IRecipeType<CuttingBoardRecipe> CBOARD_TYPE = CuttingBoardSerializer.registerType(IExampleRecipe.RECIPE_TYPE_ID);
     public static final RegistryObject<CuttingBoardSerializer<CuttingBoardRecipe>> CBOARD_SERIALIZER = RECIPES.register("cuttingboard_crafting",
             CuttingBoardSerializer::new);
