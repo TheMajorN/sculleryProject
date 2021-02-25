@@ -59,6 +59,8 @@ public class registryHandler {
     public static final RegistryObject<Item> RAW_BACON = ITEMS.register("raw_bacon", rawBacon::new);
     public static final RegistryObject<Item> COOKED_BACON = ITEMS.register("cooked_bacon", cookedBacon::new);
     public static final RegistryObject<Item> SLICED_BEEF = ITEMS.register("sliced_beef", itemBase::new);
+    public static final RegistryObject<Item> SLICED_PORK = ITEMS.register("sliced_pork", itemBase::new);
+    public static final RegistryObject<Item> SLICED_MUTTON = ITEMS.register("sliced_mutton", itemBase::new);
 
     // Beverage List
     //----------

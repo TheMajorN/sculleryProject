@@ -105,7 +105,7 @@ public class CuttingBoardContainer extends Container {
 
     @OnlyIn(Dist.CLIENT)
     public int getProgressionScale() {
-        return this.currentSmeltTime.get() != 0 && this.tileEntity.maxSmeltTime != 0
+        return this.currentSmeltTime.get() != 0
                 ? this.currentSmeltTime.get() * 37 / this.tileEntity.maxSmeltTime
                 : 0;
     }

@@ -1,0 +1,10 @@
+{
+  "type": "scullery:cuttingboard_crafting",
+  "output": {
+    "item": "scullery:sliced_mutton"
+  },
+
+  "input": {
+    "item": "minecraft:mutton"
+  }
+}
