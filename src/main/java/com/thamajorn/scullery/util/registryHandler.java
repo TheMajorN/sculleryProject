@@ -2,13 +2,19 @@ package com.thamajorn.scullery.util;
 
 import com.thamajorn.scullery.blocks.Cuttingboard;
 import com.thamajorn.scullery.blocks.Grinder;
+import com.thamajorn.scullery.blocks.HotPlate;
 import com.thamajorn.scullery.blocks.SaltEvaporator;
 import com.thamajorn.scullery.container.CuttingBoardContainer;
+import com.thamajorn.scullery.container.MeatGrinderContainer;
 import com.thamajorn.scullery.items.*;
 import com.thamajorn.scullery.recipes.IExampleRecipe;
 import com.thamajorn.scullery.recipes.CuttingBoardRecipe;
+import com.thamajorn.scullery.recipes.MeatGrinderRecipe;
 import com.thamajorn.scullery.scullery;
+import com.thamajorn.scullery.serializers.CuttingBoardSerializer;
+import com.thamajorn.scullery.serializers.MeatGrinderSerializer;
 import com.thamajorn.scullery.tileentities.CuttingBoardTileEntity;
+import com.thamajorn.scullery.tileentities.MeatGrinderTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.container.ContainerType;
@@ -50,7 +56,6 @@ public class registryHandler {
 
     // Non-Meat List
     //----------
-    public static final RegistryObject<Item> SCRAMBLEDEGGS = ITEMS.register("scrambled_eggs", itemBase::new);
     public static final RegistryObject<Item> MOLASSES = ITEMS.register("molasses", itemBase::new);
     public static final RegistryObject<Item> BROWNSUGAR = ITEMS.register("brownsugar", itemBase::new);
 
@@ -88,6 +93,7 @@ public class registryHandler {
     public static final RegistryObject<Block> GRINDER = BLOCKS.register("grinder", Grinder::new);
     public static final RegistryObject<Block> CUTTINGBOARD = BLOCKS.register("cuttingboard", Cuttingboard::new);
     public static final RegistryObject<Block> SALTEVAPORATOR = BLOCKS.register("saltevaporator", () -> new SaltEvaporator(Block.Properties.from(Blocks.WHEAT)));
+    public static final RegistryObject<Block> HOTPLATE = BLOCKS.register("hotplate", HotPlate::new);
 
     // Block Item List
     //----------
@@ -104,6 +110,8 @@ public class registryHandler {
 
     public static final RegistryObject<TileEntityType<CuttingBoardTileEntity>> CUTTINGBOARD_TILE = TILE_ENTITIES.register("cuttingboard",
             () -> TileEntityType.Builder.create(CuttingBoardTileEntity::new, registryHandler.CUTTINGBOARD.get()).build(null));
+    public static final RegistryObject<TileEntityType<MeatGrinderTileEntity>> GRINDER_TILE = TILE_ENTITIES.register("meatgrinder",
+            () -> TileEntityType.Builder.create(MeatGrinderTileEntity::new, registryHandler.GRINDER.get()).build(null));
 
     //---------------------------------
     //-----------CONTAINERS------------
@@ -111,6 +119,8 @@ public class registryHandler {
 
     public static final RegistryObject<ContainerType<CuttingBoardContainer>> CUTTINGBOARD_CONTAINER = CONTAINERS.register("cuttingboard",
             () -> IForgeContainerType.create(CuttingBoardContainer::new));
+    public static final RegistryObject<ContainerType<MeatGrinderContainer>> GRINDER_CONTAINER = CONTAINERS.register("meatgrinder",
+            () -> IForgeContainerType.create(MeatGrinderContainer::new));
 
 
     //---------------------------------
@@ -121,4 +131,9 @@ public class registryHandler {
     public static final IRecipeType<CuttingBoardRecipe> CBOARD_TYPE = CuttingBoardSerializer.registerType(IExampleRecipe.RECIPE_TYPE_ID);
     public static final RegistryObject<CuttingBoardSerializer<CuttingBoardRecipe>> CBOARD_SERIALIZER = RECIPES.register("cuttingboard_crafting",
             CuttingBoardSerializer::new);
+
+    public static final IRecipeSerializer<MeatGrinderRecipe> GRINDER_RECIPE_SERIALIZER = new MeatGrinderSerializer<>();
+    public static final IRecipeType<MeatGrinderRecipe> GRINDER_TYPE = MeatGrinderSerializer.registerType(IExampleRecipe.RECIPE_TYPE_ID);
+    public static final RegistryObject<MeatGrinderSerializer<MeatGrinderRecipe>> GRINDER_SERIALIZER = RECIPES.register("grinder_crafting",
+            MeatGrinderSerializer::new);
 }

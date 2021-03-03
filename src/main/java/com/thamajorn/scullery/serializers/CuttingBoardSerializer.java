@@ -1,4 +1,4 @@
-package com.thamajorn.scullery.util;
+package com.thamajorn.scullery.serializers;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -42,7 +42,7 @@ public class CuttingBoardSerializer<C> extends ForgeRegistryEntry<IRecipeSeriali
         buffer.writeItemStack(recipe.getRecipeOutput(), false);
     }
 
-    static <T extends IRecipeType> T registerType(ResourceLocation recipeTypeId) {
+    public static <T extends IRecipeType> T registerType(ResourceLocation recipeTypeId) {
         return (T) Registry.register(Registry.RECIPE_TYPE, recipeTypeId, new RecipeType<>());
     }
 
