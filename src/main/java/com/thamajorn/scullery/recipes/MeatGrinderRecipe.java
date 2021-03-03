@@ -13,12 +13,14 @@ public class MeatGrinderRecipe implements IExampleRecipe {
 
     private final ResourceLocation id;
     private Ingredient input;
+    private Ingredient fuel;
     private final ItemStack output;
 
-    public MeatGrinderRecipe(ResourceLocation id, Ingredient input, ItemStack output) {
+    public MeatGrinderRecipe(ResourceLocation id, Ingredient input, Ingredient fuel, ItemStack output) {
         this.id = id;
         this.output = output;
         this.input = input;
+        this.fuel = fuel;
     }
 
     @Override

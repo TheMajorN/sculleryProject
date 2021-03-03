@@ -19,16 +19,18 @@ public class MeatGrinderSerializer<C> extends ForgeRegistryEntry<IRecipeSerializ
     public MeatGrinderRecipe read(ResourceLocation recipeId, JsonObject json) {
         ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
         Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "input"));
+        Ingredient fuel = Ingredient.deserialize(JSONUtils.getJsonObject(json, "fuel"));
 
-        return new MeatGrinderRecipe(recipeId, input, output);
+        return new MeatGrinderRecipe(recipeId, input, fuel, output);
     }
 
     @Override
     public MeatGrinderRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
         ItemStack output = buffer.readItemStack();
         Ingredient input = Ingredient.read(buffer);
+        Ingredient fuel = Ingredient.read(buffer);
 
-        return new MeatGrinderRecipe(recipeId, input, output);
+        return new MeatGrinderRecipe(recipeId, input, fuel, output);
     }
 
     @Override
